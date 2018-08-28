@@ -4,7 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import * as routes from '../../constants/routes';
 import { auth } from '../../firebase';
 
-const Signup = ({ history }) =>
+const SignupPage = ({ history }) =>
   <div>
     <h1>Signup Page</h1>
     <SignupForm history={history} />
@@ -28,7 +28,7 @@ class SignupForm extends Component {
     this.state = { ...INITIAL_STATE }
   }
 
-  handleSubmit = (event) => {
+  onSubmit = (event) => {
     const {
       email,
       password,
@@ -40,6 +40,8 @@ class SignupForm extends Component {
 
     auth.signup(email, password)
       .then(authUser => {
+        console.log('---LOGGED IN USER---');
+        console.log(authUser);
         this.setState({ ...INITIAL_STATE });
         history.push(routes.HOME);
       })
@@ -66,7 +68,7 @@ class SignupForm extends Component {
       username === '';
 
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.onSubmit}>
         <div>
           <input
             type="text"
@@ -123,7 +125,7 @@ const SignupLink = () =>
     <Link to={routes.SIGNUP}>Signup</Link>
   </p>
 
-export default withRouter(Signup);
+export default withRouter(SignupPage);
 
 export {
   SignupForm,

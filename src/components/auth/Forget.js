@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Forget = () =>
+const ForgetPage = () =>
   <div>
     <h1>Forget Page</h1>
   </div>
 
-export default Forget;
+export default ForgetPage;

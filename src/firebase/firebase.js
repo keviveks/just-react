@@ -11,6 +11,7 @@ const config = {
   messagingSenderId: secrets.MESSAGING_SENDER_ID
 };
 
+// initialize it, if it isn't
 if (!firebase.apps.length) {
   firebase.initializeApp(config);
 }
