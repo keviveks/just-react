@@ -3,4 +3,4 @@ export const SIGNIN = '/signin';
 export const LANDING = '/';
 export const HOME = '/home';
 export const ACCOUNT = '/account';
-export const FORGET = '/forget';
+export const FORGOT = '/forgot';
