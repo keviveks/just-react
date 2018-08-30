@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 
 import * as routes from '../../constants/routes';
-import { auth } from '../../firebase';
+import { auth, db } from '../../firebase';
 
 const SignupPage = ({ history }) =>
   <div>
@@ -30,6 +30,7 @@ class SignupForm extends Component {
 
   onSubmit = (event) => {
     const {
+      username,
       email,
       password,
     } = this.state;
@@ -40,10 +41,14 @@ class SignupForm extends Component {
 
     auth.signup(email, password)
       .then(authUser => {
-        console.log('---LOGGED IN USER---');
-        console.log(authUser);
-        this.setState({ ...INITIAL_STATE });
-        history.push(routes.HOME);
+        db.createUser(authUser.user.uid, username, email)
+          .then((res) => {
+            this.setState({ ...INITIAL_STATE });
+            history.push(routes.HOME);
+          })
+          .catch(error => {
+            this.setState(byPropKey('error', error));
+          });
       })
       .catch(error => {
         this.setState(byPropKey('error', error));
